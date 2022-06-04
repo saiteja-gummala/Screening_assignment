@@ -1,0 +1,30 @@
+
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Account_balance`()
+BEGIN
+select bank_account_number,amount from Bank_Details.Bank_Account
+order by amount;
+END
+
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Withdraw_amount`()
+BEGIN
+select Bank_Account.bank_account_number,Bank_Account.amount from Bank_Account 
+inner join Transactions
+on Bank_Account.User_Id = Transactions.User_Id
+where
+Bank_Account.amount > Transactions.withdrawn_amount+5000
+order by Bank_Account.amount;
+END
+
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `transactaion_details`( in start_date datetime, in end_date datetime )
+begin
+select *
+from Transactions
+where transaction_date between start_date and end_date;
+end
+
+
+
+c
